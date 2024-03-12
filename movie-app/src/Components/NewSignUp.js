@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import { setGlobal } from "./globals";
 
-const NewSignUp = () => {
+const NewSignUp = ({onLogin}) => {
     const[username,setUsername] = useState('');
     const[password,setPassword] = useState('');
     const[name,setName] = useState('');
@@ -37,14 +37,23 @@ const NewSignUp = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-           var flag = validateForm;
-            if(flag){
+        
+        if(!username || !password || !name){
+            setError("Please fill in all required fields");
+            return;
+        }
+            
             try{
                 const response = await axios.post("http://localhost:3000/signup",{username,password,name});
                 if(response.data.success){
                    setMessage("Signup successfull");
                    alert("done");
-                   //navigate('/movies');
+                 
+                   setUsername("");
+                   setPassword("");
+                   setName("");
+                   onLogin(username);
+                   navigate('/movies');
                 }
                else
                    setError(response.data.message);
@@ -53,9 +62,9 @@ const NewSignUp = () => {
                
             }
             catch(error){
-                setError("Something went wrong");
+                setError("Something went wrong"+error);
             }
-        }
+        
     };
 
     const handleFocus = () => {
@@ -69,7 +78,7 @@ const NewSignUp = () => {
             <form className='sign-log-form' onSubmit={handleSubmit} noValidate>
             <div>
                     <label className='form-label'>Name</label>
-                    <input className='form-input' type="name" value={name} onFocus={handleFocus}
+                    <input className='form-input' type="text" value={name} onFocus={handleFocus}
                     onChange={(e)=>{setName(e.target.value)}} 
                     required />
                     {error && <p className='error'>{error.name}</p>}

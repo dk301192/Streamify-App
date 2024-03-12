@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import { setGlobal } from "./globals";
 
-const LoginForm = () => {
+const LoginForm = ({onLogin}) => {
     const[username,setUsername] = useState('');
     const[password,setPassword] = useState('');
     
@@ -39,10 +39,14 @@ const LoginForm = () => {
 
                 const response = await axios.post("http://localhost:3000/login",{username,password});
                 //console.log(response);
-                //setMessage('Login successful ');
+                setMessage('Login successful ');
                 if(response.data.success)
                 alert('success');
               //  const data = await response.json();
+                  setGlobal({ USER_NAME : username });
+                   setUsername("");
+                   setPassword("");
+                   onLogin(username);
                navigate('/movies');
             }
             catch(error){
