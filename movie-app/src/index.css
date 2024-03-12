@@ -1,0 +1,105 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(115deg, #000000, #444444);
+  background-attachment: fixed;
+  margin: 0;
+  color: #fff;
+
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.input-group{
+  width: 50% !important;
+}
+
+
+.movie-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  justify-content: center;
+  grid-gap:20px;
+  padding-top: 20px;
+ 
+}
+.searchbar{
+  padding: 15px !important;
+}
+.movie-card{
+  width: 250px !important;
+  background-color: rgb(26, 26, 26) !important;
+  color: wheat !important;
+  
+}
+.movie-card-body
+{
+  padding: 2px !important;
+}
+.img-movie{
+  height: 230px;
+  width: 100%;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  color: #fff;
+}
+
+section {
+  margin: 20px 0;
+  color: white;
+}
+
+
+
+p {
+  line-height: 1.6;
+}
+
+.rating{
+
+  padding-left: 10px !important;
+}
+.filter-type
+{
+  cursor: pointer;
+}
+.v1{
+  border-left: 6px solid yellow;
+  padding: 5px;
+  color: white;
+}
+.compo-main-div
+{
+  padding: 30px;
+}
+.sign-log-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+
+
+
