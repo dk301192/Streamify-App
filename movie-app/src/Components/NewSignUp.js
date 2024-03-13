@@ -1,7 +1,6 @@
 import React, { useState} from 'react'
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-import { setGlobal } from "./globals";
 
 const NewSignUp = ({onLogin}) => {
     const[username,setUsername] = useState('');
@@ -13,27 +12,7 @@ const NewSignUp = ({onLogin}) => {
     const[error,setError] = useState('');
     const[message,setMessage] = useState('');
 
-    const validateForm = () => {
-        let isValid = true;
-        const newErrors = {};
-        if(name.trim() === ''){
-            newErrors.name = "Please enter name";
-            isValid = false;
-        }
-        if(username.trim() === ""){
-            newErrors.username = "Please enter user name";
-            isValid = false;
-        }
-
-        if(password.trim() === ''){
-            newErrors.password = "Please enter password";
-            isValid = false;
-        }
-
-        setError(newErrors);
-        return isValid;
-        
-    }
+   
 
     const handleSubmit = async(e) => {
         e.preventDefault();

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
-import Home from './Components/Home';
 import About from './Components/About';
-import SignupForm from './Components/SignupForm';
 import LoginForm from './Components/Login';
 import Movies from './Components/Movies';
 import NewSignUp from './Components/NewSignUp';

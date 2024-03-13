@@ -1,7 +1,6 @@
 import React, { useState} from 'react'
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
-import { setGlobal } from "./globals";
 
 const LoginForm = ({onLogin}) => {
     const[username,setUsername] = useState('');
@@ -12,29 +11,15 @@ const LoginForm = ({onLogin}) => {
     const[error,setError] = useState('');
     const[message,setMessage] = useState('');
 
-    const validateForm = () => {
-        let isValid = true;
-        const newErrors = {};
-
-        if(username.trim() === ""){
-            newErrors.username = "Please enter user name";
-            isValid = false;
-        }
-
-        if(password.trim() === ''){
-            newErrors.password = "Please enter password";
-            isValid = false;
-        }
-
-        setError(newErrors);
-        return isValid;
-        
-    }
+ 
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-
-        if(validateForm){
+        if(!username || !password){
+            setError("Please fill in all required fields");
+            return;
+        }
+        
             try{
 
                 const response = await axios.post("http://localhost:3000/login",{username,password});
@@ -43,7 +28,6 @@ const LoginForm = ({onLogin}) => {
                 if(response.data.success)
                 alert('success');
               //  const data = await response.json();
-                  setGlobal({ USER_NAME : username });
                    setUsername("");
                    setPassword("");
                    onLogin(username);
@@ -53,7 +37,7 @@ const LoginForm = ({onLogin}) => {
 
                 setError();
             }
-        }
+        
     };
 
     const handleFocus = () => {
@@ -82,8 +66,8 @@ const LoginForm = ({onLogin}) => {
                 </div>
                 <div className='text-center'> 
                 <button className='btn btn-warning' type="submit">Login</button>
-                {error && <div style={{color:'red'}}>{error}</div>}
-                {message && <div style={{color:'green'}}>{message}</div>}
+                {error && <div  className='alert alert-danger mt-3' role='alert'>{error}</div>}
+                {message && <div className='alert alert-warning mt-3' role='alert' >{message}</div>}
                 </div> 
             </form>
         </div>
