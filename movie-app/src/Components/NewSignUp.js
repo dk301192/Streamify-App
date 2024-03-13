@@ -79,7 +79,7 @@ const NewSignUp = ({onLogin}) => {
                 </div>
               
                 <div className='text-center'> 
-                <button className='btn btn-warning' type="submit">Login</button>
+                <button className='btn btn-warning' type="submit">Sign Up</button>
                 {error && <div  className='alert alert-danger mt-3' role='alert'>{error}</div>}
                 {message && <div className='alert alert-warning mt-3' role='alert' >{message}</div>}
                 </div> 
