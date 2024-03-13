@@ -1,6 +1,9 @@
 import React, { useState} from 'react'
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import './LoginForm.css';
+
+
 
 const LoginForm = ({onLogin}) => {
     const[username,setUsername] = useState('');
@@ -10,6 +13,7 @@ const LoginForm = ({onLogin}) => {
 
     const[error,setError] = useState('');
     const[message,setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // New state for progress dialog
 
  
 
@@ -19,24 +23,36 @@ const LoginForm = ({onLogin}) => {
             setError("Please fill in all required fields");
             return;
         }
-        
+        setIsLoading(true); // Show progress dialog
+
             try{
 
                 const response = await axios.post("http://localhost:3000/login",{username,password});
-                //console.log(response);
-                setMessage('Login successful ');
-                if(response.data.success)
+                console.log(response);
+                if(response.data.success){
                 alert('success');
               //  const data = await response.json();
+                 setMessage('Login successful ');
+
                    setUsername("");
                    setPassword("");
                    onLogin(username);
-               navigate('/movies');
+                   navigate('/movies');
+                }
+                else
+                {  
+                       setError(response.data.message);
+
+                }
             }
             catch(error){
 
-                setError();
-            }
+                console.error('Error during login:', error);
+                setError('An error occurred during login. Please try again.');
+            }finally {
+                setIsLoading(false); // Hide progress dialog regardless of success or failure
+
+              }
         
     };
 
@@ -68,6 +84,12 @@ const LoginForm = ({onLogin}) => {
                 <button className='btn btn-warning' type="submit">Login</button>
                 {error && <div  className='alert alert-danger mt-3' role='alert'>{error}</div>}
                 {message && <div className='alert alert-warning mt-3' role='alert' >{message}</div>}
+                <div style={{ display: isLoading ? 'flex' : 'none' }} className='modal'>
+        <div className='modal-content'>
+          <div className='loader'></div>
+        </div>
+      </div>
+                
                 </div> 
             </form>
         </div>

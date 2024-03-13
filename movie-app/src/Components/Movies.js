@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import MovieCard from './MovieCard';
 import { IoSearchOutline } from "react-icons/io5";
+import './LoginForm.css';
 
 const Movies = () => {
     const[movies,setMovies] = useState([]);
@@ -10,26 +11,37 @@ const Movies = () => {
     const[buttonClicked, setButtonClicked] = useState(false);
     const[all,title,rating,genere] = ["All","Title","Rating","Genere"];
     const[searchBy,setSearchBy]=useState('');
+    const [isLoading, setIsLoading] = useState(false); // New state for progress dialog
+    
     //setSearchBy(all);
 
     var url = "";
     
     const fetchMovies = async() =>{
+        setIsLoading(true);
         try{
                 const response = await fetch('http://localhost:3000/movies');
             const data = await response.json();
+            setError("");
+
             setMovies(data);
+
+
         }
         catch(error){
             console.log('Error fetching data', error);
-            setError(error.message);
+            setMovies([]);
+            setError("Movies not found");
+        }finally{
+            setIsLoading(false);
         }
     }
 
  
     const fetchMovieByFilter = async() => {
         try{
-            
+            setIsLoading(true);
+
             if(searchTerm==null || searchTerm==""){                         
                 fetchMovies();
 
@@ -55,16 +67,23 @@ const Movies = () => {
                     searchText:searchTerm
                 }
             });
+            setError("");
+
             setMovies(response.data);
+
 
         }
             
           
         }  
         
-        catch(error){
-            console.log(error);
-            setError(error);
+        catch(e){
+            console.log(e);
+            setMovies([]);
+            setError("Movies not found");        }
+        finally{
+            setIsLoading(false);
+
         }
 
     }
@@ -117,6 +136,14 @@ const Movies = () => {
             </h1><h5>Search Streamify by typing a word or phrase in the search box at the top of this page.</h5></div>)
          }
         {searchBy!='' &&( <div className='v1'><h3>{searchBy}</h3></div>)}
+
+        {error && <div  className='text-secondary mt-3 text-center h3' role='alert'>{error}</div>}
+
+        <div style={{ display: isLoading ? 'flex' : 'none' }} className='modal'>
+    <div className='modal-content'>
+      <div className='loader'></div>
+    </div>
+  </div>
            {movies && (
                 <div className='movie-list'>
                     {movies.map((movie) => (
@@ -124,6 +151,7 @@ const Movies = () => {
                     ))}
                 </div>
             )}
+
         </div>
 
     )

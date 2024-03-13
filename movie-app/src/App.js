@@ -4,6 +4,7 @@ import About from './Components/About';
 import LoginForm from './Components/Login';
 import Movies from './Components/Movies';
 import NewSignUp from './Components/NewSignUp';
+import Footer from './Components/Footer';
 
 const App = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -28,7 +29,7 @@ const App = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container">
             <NavLink className="navbar-brand text-warning" to="/">
-              {isLoggedIn ? `Welcome, ${username}!` : 'Movie App'}
+              Streamify
             </NavLink>
             <button className="navbar-toggler" type="button" onClick={handleNavCollapse}>
               <span className="navbar-toggler-icon"></span>
@@ -67,9 +68,17 @@ const App = () => {
                     </li>
                   </>
                 )}
+               
                 {isLoggedIn && (
                   <li className="nav-item">
-                    <button className="nav-link" onClick={handleLogout}>
+                    <button className="nav-link text-warning">
+                    {isLoggedIn ? `Welcome, ${username}!` : ''}
+                    </button>
+                  </li>
+                )}
+                 {isLoggedIn && (
+                  <li className="nav-item">
+                    <button className="nav-link " onClick={handleLogout}>
                       Logout
                     </button>
                   </li>
@@ -92,8 +101,11 @@ const App = () => {
             element={<LoginForm onLogin={(username) => handleLogin(username)} />}
           />
         </Routes>
+            <Footer/>
+
       </div>
     </Router>
+
   );
 };
 

@@ -54,11 +54,11 @@ app.get('/movies/search/title',(req,res) => {
                 res.json(rows);
             }
             else{
-                res.status(404).json({ message: "Movies not", rows });
+                res.json({ message: "Movies not found", rows });
             }
         }
         else{
-            res.status(500).json({ message: "Movies not", err });
+            res.json({ message: "Movies not found", err });
         }
     })
 });
@@ -74,11 +74,11 @@ app.get('/movies/search/rating',(req,res) => {
                 res.json(rows);
             }
             else{
-                res.status(404).json({ message: "Movies not", rows });
+                res.json({ message: "Movies not found", rows });
             }
         }
         else{
-            res.status(500).json({ message: "Movies not", err });
+            res.status(500).json({ message: "Movies not found", err });
         }
     })
 });
@@ -149,7 +149,7 @@ app.post('/login', (req,res) => {
     const query = 'SELECT * FROM app_user WHERE username= ? and password=?';
     connection.query(query,[username,password],(err,result) => {
         if(err){
-            res.status(500).json({success:false, message:'Internal server error'});
+            res.json({success:false, message:'Internal server error'});
             return;
         }
         else if(result.length > 0){
@@ -165,7 +165,7 @@ app.post('/login', (req,res) => {
 
         }
         else{
-            res.status(401).json({success:false,message:'Invalid username or password'})
+            res.json({success:false,message:'Invalid username or password'})
         }
     })
 })

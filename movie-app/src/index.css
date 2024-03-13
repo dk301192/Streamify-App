@@ -8,6 +8,8 @@ body {
   background-attachment: fixed;
   margin: 0;
   color: #fff;
+  display: flex;
+  flex-direction: column;
 
 
 }
@@ -100,6 +102,14 @@ p {
   box-sizing: border-box;
 }
 
-
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  
+  text-align: center;
+}
 
 
